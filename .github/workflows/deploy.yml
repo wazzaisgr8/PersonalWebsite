@@ -1,0 +1,23 @@
+name: 🚀 Deploy to Spaceship
+# This tells GitHub to take the latest code and move it to our Spaceship.com server using the secrets
+on:
+  push:
+    branches:
+      - main # This tells the script to only run when you push to 'main'
+
+jobs:
+  web-deploy:
+    name: 🎉 Sync Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        
+      - name: 📂 Sync to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Path on your server. Usually public_html/ for shared hosting.
+          server-dir: /
