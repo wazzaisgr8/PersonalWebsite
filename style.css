@@ -1,0 +1,159 @@
+/* 1. LAYOUT & THEME */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+    background: transparent;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-slide {
+    min-width: 100%;
+    padding: 60px 80px; /* Extra padding for the nav buttons */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.slide-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+}
+
+.slide-text { flex: 1; }
+
+.slide-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* Ensure images maintain their aspect ratio and fit the brutalist container */
+.project-img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid currentColor;
+    filter: grayscale(100%);
+    transition: all 0.3s ease-in-out;
+    display: block;
+}
+
+.project-img:hover {
+    filter: grayscale(0%);
+    transform: translateY(-5px); /* Adds a subtle lift effect on hover */
+}
+
+.img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 1px dashed currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+}
+
+/* Styling for the project link button */
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+/* Ensure the image also indicates it is clickable */
+.slide-image a {
+    display: block;
+    cursor: pointer;
+}
+
+/* Subtle scale effect when hovering over the project image */
+.project-img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+    transition: all 0.3s ease-in-out;
+}
+
+/* 2. TYPOGRAPHY */
+.slide-tag {
+    display: inline-block;
+    border: 1px solid currentColor;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.project-slide h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem); /* Responsive size: gets smaller on mobile */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    /* 1.1 provides enough vertical space for multiple lines to clear each other */
+    line-height: 1.1; 
+    margin-bottom: 1rem;
+    max-width: 90%; /* Prevents text from hitting the very edge of the container */
+}
+
+.project-slide p {
+    font-size: 1.125rem;
+    max-width: 500px;
+    margin: 0 auto;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* 3. NAVIGATION */
+.nav-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    background: transparent;
+    color: currentColor;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.dark .nav-btn:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+#prevBtn { left: 0; border-right: 1px solid currentColor; }
+#nextBtn { right: 0; border-left: 1px solid currentColor; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .project-slide h3 { font-size: 2rem; }
+    .nav-btn { width: 40px; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .slide-content { flex-direction: column; }
+    .project-slide h3 { font-size: 2.5rem; }
+    .project-slide { padding: 40px 60px; }
+}
