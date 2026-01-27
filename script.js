@@ -51,6 +51,24 @@ prevBtn.addEventListener('click', () => {
     updateCarousel();
 });
 
+// Hero Portrait Image Rotator
+let currentPhotoIndex = 0;
+const photos = document.querySelectorAll('.hero-slide');
+
+function rotatePhotos() {
+    // Hide current photo
+    photos[currentPhotoIndex].classList.replace('opacity-100', 'opacity-0');
+    
+    // Increment index
+    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    
+    // Show next photo
+    photos[currentPhotoIndex].classList.replace('opacity-0', 'opacity-100');
+}
+
+// Run every 10 seconds (10000ms)
+setInterval(rotatePhotos, 10000);
+
 /**
  * ACCESSIBILITY & UX: Adding keyboard support so users can 
  * navigate with their arrow keys.
@@ -67,4 +85,5 @@ document.addEventListener('keydown', (e) => {
  * If the user rotates their phone or resizes their browser window,
  * we re-run updateCarousel to ensure the slide is perfectly centered.
  */
+
 window.addEventListener('resize', updateCarousel);
