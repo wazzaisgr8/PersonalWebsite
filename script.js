@@ -51,23 +51,16 @@ prevBtn.addEventListener('click', () => {
     updateCarousel();
 });
 
-// Hero Portrait Image Rotator
-let currentPhotoIndex = 0;
+// Hero Section Warren Portrait Randomiser
 const photos = document.querySelectorAll('.hero-slide');
 
-function rotatePhotos() {
-    // Hide current photo
-    photos[currentPhotoIndex].classList.replace('opacity-100', 'opacity-0');
+if (photos.length > 0) {
+    // Generate a random index (0, 1, or 2)
+    const randomIndex = Math.floor(Math.random() * photos.length);
     
-    // Increment index
-    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
-    
-    // Show next photo
-    photos[currentPhotoIndex].classList.replace('opacity-0', 'opacity-100');
+    // Set the randomly chosen photo to visible
+    photos[randomIndex].classList.replace('opacity-0', 'opacity-100');
 }
-
-// Run every 10 seconds (10000ms)
-setInterval(rotatePhotos, 10000);
 
 /**
  * ACCESSIBILITY & UX: Adding keyboard support so users can 
@@ -87,3 +80,4 @@ document.addEventListener('keydown', (e) => {
  */
 
 window.addEventListener('resize', updateCarousel);
+
