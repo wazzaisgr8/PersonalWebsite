@@ -1,0 +1,186 @@
+/* BADGE CAROUSEL SPECIFIC STYLES - Namespaced to avoid conflicts */
+.badge-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0;
+}
+
+/* Gradient Masks for Badge Carousel */
+.badge-carousel-wrapper::before,
+.badge-carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.badge-carousel-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-color, #ffffff), transparent);
+}
+
+.badge-carousel-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-color, #ffffff), transparent);
+}
+
+/* Dark mode support for gradients */
+.dark .badge-carousel-wrapper::before {
+    background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.dark .badge-carousel-wrapper::after {
+    background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+/* The scrolling track for badges */
+.badge-carousel-track {
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    animation: badge-scroll 35s linear infinite;
+    padding: 20px 40px;
+    align-items: center;
+}
+
+.badge-carousel-track.paused {
+    animation-play-state: paused;
+}
+
+@keyframes badge-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Individual Badge Card */
+.badge-card {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: grayscale(100%) brightness(0.8) contrast(1.1);
+}
+
+.badge-card:hover,
+.badge-card.active {
+    filter: grayscale(0%) brightness(1) contrast(1);
+    transform: scale(1.15);
+    z-index: 5;
+}
+
+/* Badge Image */
+.badge-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* Tooltip */
+.badge-tooltip {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a2e;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.dark .badge-tooltip {
+    background: rgba(30, 30, 30, 0.95);
+    color: #ffffff;
+}
+
+.badge-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid rgba(255, 255, 255, 0.95);
+}
+
+.dark .badge-tooltip::before {
+    border-bottom-color: rgba(30, 30, 30, 0.95);
+}
+
+.badge-card:hover .badge-tooltip,
+.badge-card.active .badge-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Glow Effect on Hover */
+.badge-card::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.badge-card:hover::after,
+.badge-card.active::after {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .badge-card {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .badge-carousel-track {
+        gap: 25px;
+    }
+    
+    .badge-carousel-wrapper::before,
+    .badge-carousel-wrapper::after {
+        width: 60px;
+    }
+    
+    .badge-tooltip {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+        bottom: -40px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .badge-carousel-track {
+        animation: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 30px;
+    }
+    
+    .badge-card {
+        filter: grayscale(0%);
+    }
+}
